@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/submit-listing.ts": { "maxDuration": 15 }
+  }
+}
