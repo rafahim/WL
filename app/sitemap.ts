@@ -2,6 +2,9 @@ import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/lib/config';
 import { MIN_INDEXABLE_CATEGORY_LISTINGS, categories, categorySlug, latestListingUpdate, liveWebsites } from '@/lib/data';
 
+// Make the metadata route explicitly build-time static for GitHub Pages exports.
+export const dynamic = 'force-static';
+
 // lastModified reflects real content changes (latest listing date) instead of a fixed or per-build date.
 const staticPages = [
   { path: '', lastModified: latestListingUpdate, priority: 1, changeFrequency: 'weekly' as const },
