@@ -16,8 +16,11 @@ export function WebsiteLogo({ website, size = 'regular' }: { website: Website; s
     const canonicalSiteUrl = `https://${website.domain}/`;
     const directFavicon = `${canonicalSiteUrl}favicon.ico`;
     const cachedFavicon = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(canonicalSiteUrl)}&sz=128`;
-    return [website.logoUrl, directFavicon, cachedFavicon].filter((item): item is string => Boolean(item));
-  }, [website.logoUrl, website.url]);
+    const own = website.logoUrl?.startsWith('/') ? `${process.env.NEXT_PUBLIC_BASE_PATH || ''}${website.logoUrl}` : website.logoUrl;
+    return [own, directFavicon, cachedFavicon].filter((item): item is string => Boolean(item));
+  }, [website.logoUrl, website.domain]);
+  // Logos shipped with the site load instantly, so they should never wait for lazy loading.
+  const isLocal = Boolean(website.logoUrl?.startsWith('/')) && sourceIndex === 0;
   const source = sources[sourceIndex];
 
   return (
@@ -26,7 +29,9 @@ export function WebsiteLogo({ website, size = 'regular' }: { website: Website; s
         <img
           src={source}
           alt={`${website.name} logo`}
-          loading="lazy"
+          loading={isLocal ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={isLocal ? 'high' : 'auto'}
           referrerPolicy="no-referrer"
           onError={() => setSourceIndex((current) => Math.min(current + 1, sources.length))}
         />

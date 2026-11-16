@@ -99,6 +99,7 @@ export const websites: Website[] = [
     seoDescription: 'Explore RA Fahim’s Bangladesh-based portfolio for Next.js websites, SaaS products, e-commerce stores, custom web apps, dashboards and digital experiences.',
     audience: 'Businesses, founders and teams looking for a web developer, digital product builder or custom website and application services.',
     logoText: 'RA',
+    logoUrl: '/logos/ra-fahim.webp',
     color: '#e8edfb',
     accent: '#3b548f',
     tags: ['Web Developer', 'Next.js', 'React', 'SaaS', 'E-commerce', 'Web Applications', 'Bangladesh'],
