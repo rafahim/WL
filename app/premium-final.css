@@ -170,12 +170,9 @@ h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 ::selection { background: var(--pf-lime); color: #0d0d0d; }
 
-/* WhatsApp pill lives in the footer bottom bar */
-.folio-footer-bottom a.folio-footer-pill { gap: 8px; margin: 0; padding: 4px 4px 4px 12px; color: #0d0d0d; font-size: 8px; letter-spacing: .04em; box-shadow: 0 8px 20px -10px rgba(200,255,101,.6), 0 0 0 3px rgba(200,255,101,.07); }
-.folio-footer-bottom a.folio-footer-pill:hover { gap: 11px; box-shadow: 0 12px 26px -10px rgba(200,255,101,.75), 0 0 0 4px rgba(200,255,101,.1); }
-.folio-footer-bottom .pill-live { width: 5px; height: 5px; }
-.folio-footer-bottom .pill-arrow { width: 22px; height: 22px; }
-.folio-footer-bottom .pill-arrow svg { width: 10px; height: 10px; }
+/* WhatsApp is a plain text link in the footer bottom bar, like the other items */
+.folio-footer-bottom a { transition: color .2s; }
+.folio-footer-bottom a:hover { color: var(--pf-lime); }
 .folio-footer-brand p { margin-bottom: 0; }
 
 /* ───────── Responsive layer (phone · tablet · desktop · wide) ─────────
@@ -235,7 +232,12 @@ img, video, canvas { max-width: 100%; }
 
   /* Curation list: real flow instead of fixed offsets, so no dead space */
   .folio-feature-stack { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
-  .folio-feature-row { position: relative; top: auto !important; right: auto !important; left: auto !important; width: 96%; }
+  .folio-feature-row { position: relative; top: auto !important; right: auto !important; left: auto !important; width: 96%; margin-inline: auto; }
+  .folio-feature-row-1 { transform: rotate(-2deg); }
+  .folio-feature-row-2 { transform: rotate(2deg); }
+  .folio-feature-row-3 { transform: rotate(-1deg); }
+  .folio-feature-row-4 { transform: rotate(1.5deg); }
+  .folio-feature-row:hover { transform: translateY(-6px) rotate(0); }
 
   /* iOS zooms into inputs under 16px — keep fields at 16px so the page never jumps */
   input, textarea, form select { font-size: 16px; }
