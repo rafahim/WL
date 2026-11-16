@@ -171,8 +171,11 @@ p { text-wrap: pretty; }
 ::selection { background: var(--pf-lime); color: #0d0d0d; }
 
 /* WhatsApp pill lives in the footer bottom bar */
-.folio-footer-bottom a.folio-footer-pill { gap: 12px; margin: 0; color: #0d0d0d; font-size: 12px; letter-spacing: .01em; }
-.folio-footer-bottom a.folio-footer-pill:hover { gap: 16px; }
+.folio-footer-bottom a.folio-footer-pill { gap: 8px; margin: 0; padding: 4px 4px 4px 12px; color: #0d0d0d; font-size: 8px; letter-spacing: .04em; box-shadow: 0 8px 20px -10px rgba(200,255,101,.6), 0 0 0 3px rgba(200,255,101,.07); }
+.folio-footer-bottom a.folio-footer-pill:hover { gap: 11px; box-shadow: 0 12px 26px -10px rgba(200,255,101,.75), 0 0 0 4px rgba(200,255,101,.1); }
+.folio-footer-bottom .pill-live { width: 5px; height: 5px; }
+.folio-footer-bottom .pill-arrow { width: 22px; height: 22px; }
+.folio-footer-bottom .pill-arrow svg { width: 10px; height: 10px; }
 .folio-footer-brand p { margin-bottom: 0; }
 
 /* ───────── Responsive layer (phone · tablet · desktop · wide) ─────────
