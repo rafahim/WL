@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
+import './premium.css';
+import './redesign.css';
+import './unified.css';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
+import { Motion } from '@/components/motion';
 import { siteConfig } from '@/lib/config';
 
 const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
@@ -27,5 +31,5 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     { '@context': 'https://schema.org', '@type': 'Organization', '@id': `${siteConfig.url}/#organization`, name: siteConfig.name, url: siteConfig.url, description: siteConfig.description, logo: `${siteConfig.url}/icon.svg` },
     { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${siteConfig.url}/#website`, name: siteConfig.name, url: siteConfig.url, description: siteConfig.description, publisher: { '@id': `${siteConfig.url}/#organization` }, inLanguage: 'en' }
   ];
-  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} /><div className="site-shell"><SiteHeader/><main>{children}</main><SiteFooter/></div></body></html>;
+  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} /><Motion/><div className="site-shell"><SiteHeader/><main>{children}</main><SiteFooter/></div></body></html>;
 }

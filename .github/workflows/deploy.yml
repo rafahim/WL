@@ -31,9 +31,7 @@ jobs:
       - name: Build static website
         run: npm run build
         env:
-          NEXT_PUBLIC_SITE_URL: https://weblist.rafahim.com
-          NEXT_PUBLIC_LISTING_API_URL: ${{ vars.NEXT_PUBLIC_LISTING_API_URL }}
-          NEXT_PUBLIC_CONTACT_EMAIL: ${{ vars.NEXT_PUBLIC_CONTACT_EMAIL }}
+          NEXT_PUBLIC_SITE_URL: https://bdweblist.rafahim.com
           NEXT_PUBLIC_USE_CUSTOM_DOMAIN: 'true'
       - name: Upload static output
         uses: actions/upload-pages-artifact@v3

@@ -8,6 +8,7 @@ const staticPages = [
   { path: '/explore/', lastModified: latestListingUpdate, priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/submit/', lastModified: '2026-11-15', priority: 0.6, changeFrequency: 'monthly' as const },
   { path: '/about/', lastModified: '2026-11-15', priority: 0.6, changeFrequency: 'monthly' as const },
+  { path: '/ra-fahim/', lastModified: '2026-11-17', priority: 0.6, changeFrequency: 'monthly' as const },
   { path: '/guidelines/', lastModified: '2026-11-15', priority: 0.5, changeFrequency: 'monthly' as const },
   { path: '/privacy/', lastModified: '2026-11-15', priority: 0.3, changeFrequency: 'yearly' as const },
   { path: '/terms/', lastModified: '2026-11-15', priority: 0.3, changeFrequency: 'yearly' as const }

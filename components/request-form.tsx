@@ -6,23 +6,27 @@ import { Icon } from './icon';
 import { categories } from '@/lib/data';
 import { siteConfig } from '@/lib/config';
 
-type FormStatus = { type: 'success' | 'error'; message: string } | null;
+type FormStatus = { type: 'info' | 'error'; message: string; whatsappUrl?: string } | null;
 
 export function RequestForm() {
   const [status, setStatus] = useState<FormStatus>(null);
-  const [sending, setSending] = useState(false);
   const [promo, setPromo] = useState('Free listing');
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus(null);
+
     const form = event.currentTarget;
     const formData = new FormData(form);
-    if (String(formData.get('website') || '').trim() === '') {
-      setStatus({ type: 'error', message: 'Please enter your website URL.' });
+    const value = (key: string) => String(formData.get(key) || '').trim();
+
+    // Basic honeypot: ignore automated submissions without opening WhatsApp.
+    if (value('companyFax')) {
+      setStatus({ type: 'error', message: 'We could not process this request. Please try again.' });
       return;
     }
-    const website = String(formData.get('website') || '').trim();
+
+    const website = value('website');
     try {
       const parsed = new URL(website);
       if (parsed.protocol !== 'https:') throw new Error('https');
@@ -30,27 +34,51 @@ export function RequestForm() {
       setStatus({ type: 'error', message: 'Please enter a valid HTTPS website URL (for example, https://your-website.com).' });
       return;
     }
-    const apiUrl = process.env.NEXT_PUBLIC_LISTING_API_URL;
-    if (!apiUrl) {
-      setStatus({ type: 'error', message: `The request form is ready, but the email service has not been connected yet.${siteConfig.contactEmail ? ` Please contact ${siteConfig.contactEmail} for now.` : ' Please try again later.'}` });
-      return;
+
+    for (const [label, field] of [['Logo image URL', 'logoUrl'], ['Screenshot URL', 'screenshotUrl'], ['Social or contact link', 'contactLink']]) {
+      const link = value(field);
+      if (!link) continue;
+      try {
+        if (new URL(link).protocol !== 'https:') throw new Error('https');
+      } catch {
+        setStatus({ type: 'error', message: `${label} must be a valid HTTPS URL.` });
+        return;
+      }
     }
-    const payload = Object.fromEntries(formData.entries());
-    setSending(true);
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.error || 'We could not send your request. Please try again.');
-      setStatus({ type: 'success', message: 'Your request has been sent. We will review the website and contact you by email.' });
-      form.reset();
-      setPromo('Free listing');
-    } catch (error) {
-      setStatus({ type: 'error', message: error instanceof Error ? error.message : 'Something went wrong. Please try again.' });
-    } finally {
-      setSending(false);
-    }
+
+    const lines = [
+      '*BD WEB LIST — NEW WEBSITE SUBMISSION*',
+      '',
+      '*01 · WEBSITE DETAILS*',
+      `Website name: ${value('name')}`,
+      `Website URL: ${website}`,
+      `Category: ${value('category')}`,
+      `Tagline: ${value('tagline')}`,
+      `Description: ${value('description')}`,
+      `Logo image URL: ${value('logoUrl') || 'Not provided'}`,
+      `Screenshot URL: ${value('screenshotUrl') || 'Not provided'}`,
+      '',
+      '*02 · SUBMITTER CONTACT DETAILS*',
+      `Name: ${value('ownerName')}`,
+      `Email: ${value('email')}`,
+      `Social/contact link: ${value('contactLink') || 'Not provided'}`,
+      '',
+      '*03 · PLACEMENT REQUEST*',
+      `Request type: ${value('promotionType') || 'Free listing'}`,
+      `Guidelines confirmed: ${value('agreeToGuidelines') === 'yes' ? 'Yes' : 'No'}`,
+      '',
+      `Sent from: ${siteConfig.url}/submit/`
+    ];
+
+    const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(lines.join('\n'))}`;
+    setStatus({
+      type: 'info',
+      message: 'WhatsApp is ready with your completed form details. Review the message and tap Send in WhatsApp to submit your request.',
+      whatsappUrl
+    });
+
+    // Opening a chat is user-initiated. WhatsApp requires the visitor to press Send.
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   }
 
   return <form className="request-form" onSubmit={handleSubmit}>
@@ -80,8 +108,8 @@ export function RequestForm() {
     </div>
     <div className="form-consent"><label className="consent-check"><input type="checkbox" name="agreeToGuidelines" value="yes" required/><span>I confirm that I own this website or have permission to submit it, and that it follows the <Link href="/guidelines/" target="_blank">listing guidelines</Link>.</span></label><p>Submitting a request does not guarantee publication. Every listing is reviewed manually.</p></div>
     <div className="honeypot" aria-hidden="true"><label>Leave this field empty<input name="companyFax" tabIndex={-1} autoComplete="off" /></label></div>
-    {status && <div className={`form-status ${status.type}`} role="status"><Icon name={status.type === 'success' ? 'check' : 'shield'} size={18}/>{status.message}</div>}
-    <button type="submit" className="button button-dark button-submit" disabled={sending}>{sending ? 'Sending request...' : 'Send listing request'}{sending ? <span className="button-spinner"/> : <Icon name="arrow-up-right" size={17}/>}</button>
-    <p className="form-security"><Icon name="shield" size={14}/> Your details are only used to review this submission and contact you.</p>
+    {status && <div className={`form-status ${status.type}`} role="status"><Icon name={status.type === 'info' ? 'info' : 'shield'} size={18}/><span>{status.message}{status.whatsappUrl && <> <a className="form-whatsapp-fallback" href={status.whatsappUrl} target="_blank" rel="noopener noreferrer">Open WhatsApp <Icon name="arrow-up-right" size={13}/></a></>}</span></div>}
+    <button type="submit" className="button button-dark button-submit">Continue to WhatsApp <Icon name="send" size={17}/></button>
+    <p className="form-security"><Icon name="shield" size={14}/> Your details are placed in a WhatsApp message. Nothing is sent until you tap Send in WhatsApp.</p>
   </form>;
 }
