@@ -22,9 +22,9 @@ export function SiteFooter() {
         </div>
         <div className="folio-footer-giant" aria-hidden="true">BD WEB LIST</div>
         <div className="folio-footer-bottom">
-          <span>© {new Date().getFullYear()} BD Web List. Made for the curious.</span>
+          <span>© {new Date().getFullYear()} BD Web List. Made for the curious in Bangladesh.</span>
           <span>DISCOVER · EXPLORE · PROMOTE</span>
-          <Link href="/ra-fahim/">Developed by <b>RA Fahim</b> <Icon name="arrow-up-right" size={12} /></Link>
+          <a className="folio-back-top" href="#top" aria-label="Back to top">Back to top <span aria-hidden="true"><Icon name="arrow-up-right" size={12} /></span></a>
         </div>
       </div>
     </footer>

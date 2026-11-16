@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 import './premium.css';
@@ -15,6 +15,8 @@ import { siteConfig } from '@/lib/config';
 const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
 const publicBasePath = process.env.GITHUB_ACTIONS === 'true' && process.env.NEXT_PUBLIC_USE_CUSTOM_DOMAIN !== 'true' && repositoryName ? `/${repositoryName}` : '';
 
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#0d0d0d' };
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: 'BD Web List — Discover, Explore & Promote Websites', template: '%s | BD Web List' },
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
   openGraph: { type: 'website', siteName: siteConfig.name, title: 'BD Web List — Discover, Explore & Promote Websites', description: siteConfig.description, url: siteConfig.url, images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'BD Web List — Discover, Explore & Promote Websites' }] },
   twitter: { card: 'summary_large_image', title: 'BD Web List — Discover, Explore & Promote Websites', description: siteConfig.description, images: ['/og-image.png'] },
-  icons: { icon: [{ url: `${publicBasePath}/icon.png`, type: 'image/png', sizes: '192x192' }, { url: `${publicBasePath}/icon.svg`, type: 'image/svg+xml' }], shortcut: `${publicBasePath}/icon.png`, apple: `${publicBasePath}/apple-icon.png` },
+  icons: { icon: [{ url: `${publicBasePath}/favicon.ico`, sizes: 'any' }, { url: `${publicBasePath}/icon.svg`, type: 'image/svg+xml' }, { url: `${publicBasePath}/icon.png`, type: 'image/png', sizes: '512x512' }], shortcut: `${publicBasePath}/favicon.ico`, apple: [{ url: `${publicBasePath}/apple-icon.png`, sizes: '180x180', type: 'image/png' }] },
   category: 'website directory'
 };
 
@@ -34,5 +36,5 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     { '@context': 'https://schema.org', '@type': 'Organization', '@id': `${siteConfig.url}/#organization`, name: siteConfig.name, url: siteConfig.url, description: siteConfig.description, logo: `${siteConfig.url}/logo-mark.png` },
     { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${siteConfig.url}/#website`, name: siteConfig.name, url: siteConfig.url, description: siteConfig.description, publisher: { '@id': `${siteConfig.url}/#organization` }, inLanguage: 'en' }
   ];
-  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} /><Motion/><div className="site-shell"><SiteHeader/><main>{children}</main><SiteFooter/></div></body></html>;
+  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} /><Motion/><div className="site-shell" id="top"><SiteHeader/><main>{children}</main><SiteFooter/></div></body></html>;
 }
