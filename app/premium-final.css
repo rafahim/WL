@@ -1,0 +1,108 @@
+/* Premium polish layer — loaded after every other stylesheet. */
+
+:root {
+  --pf-lime: #c8ff65;
+  --pf-ease: cubic-bezier(.22, 1, .36, 1);
+  --pf-ring: 0 0 0 2px #0d0d0d, 0 0 0 4px var(--pf-lime);
+}
+
+/* ---------- Header: glass bar + photo logo ---------- */
+.folio-header {
+  background: linear-gradient(180deg, rgba(13,13,13,.97), rgba(13,13,13,.9));
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(200,255,101,.35), rgba(182,167,255,.3), transparent) 1;
+  box-shadow: 0 10px 40px -18px rgba(0,0,0,.7);
+}
+.brand { gap: 12px; }
+.brand-mark.brand-mark-photo {
+  width: 40px; height: 40px; padding: 2px; overflow: hidden; border: 0; border-radius: 50%;
+  background: conic-gradient(from 210deg, var(--pf-lime), #b6a7ff, #ff8063, var(--pf-lime));
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 8px 24px -6px rgba(200,255,101,.35);
+  transition: transform .5s var(--pf-ease), box-shadow .4s;
+}
+.brand-mark.brand-mark-photo img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #0d0d0d; }
+.brand:hover .brand-mark.brand-mark-photo { transform: rotate(-8deg) scale(1.06); box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 10px 30px -4px rgba(200,255,101,.5); }
+.folio-footer-brand .brand-mark.brand-mark-photo { width: 56px; height: 56px; padding: 3px; }
+
+.folio-header-cta {
+  padding: 10px 16px; border: 1px solid rgba(200,255,101,.32); border-radius: 999px;
+  background: rgba(200,255,101,.06); color: var(--pf-lime);
+  transition: background .3s, color .3s, border-color .3s, transform .3s var(--pf-ease);
+}
+.folio-header-cta:hover { background: var(--pf-lime); border-color: var(--pf-lime); color: #0d0d0d; transform: translateY(-1px); }
+.folio-header-cta:hover span { color: #0d0d0d; }
+
+/* ---------- Hero: richer depth ---------- */
+.folio-hero-glow-left { background: rgba(94,106,210,.34); }
+.folio-hero-glow-right { background: rgba(200,255,101,.13); }
+.folio-orbit-core { box-shadow: 0 0 0 10px rgba(255,255,255,.025), 0 0 110px rgba(200,255,101,.2); }
+.folio-orbit-card { background: linear-gradient(160deg, rgba(36,36,36,.97), rgba(22,22,22,.97)); }
+.folio-live-pill { box-shadow: 0 0 28px -8px rgba(200,255,101,.5); }
+
+/* ---------- Cards: softer, more refined ---------- */
+.folio-card {
+  border-color: rgba(17,17,17,.22); border-radius: 18px;
+  background: linear-gradient(180deg, #fbfaf6, #f4f2ea);
+  box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 12px 30px -22px rgba(17,17,17,.35);
+  transition: border-color .35s, transform .45s var(--pf-ease), box-shadow .45s var(--pf-ease);
+}
+.folio-card:before { height: 4px; }
+.folio-card:hover {
+  border-color: rgba(17,17,17,.55); transform: translateY(-6px);
+  box-shadow: 0 28px 50px -24px rgba(17,17,17,.45), 0 0 0 1px rgba(17,17,17,.04);
+}
+.folio-card-arrow { border-radius: 50%; }
+.folio-featured { background: rgba(200,255,101,.35); border-color: rgba(17,17,17,.1); }
+.folio-card-tags span { border-left-color: rgba(17,17,17,.18); }
+
+.website-logo { box-shadow: 0 6px 16px -8px rgba(17,17,17,.4), 0 0 0 1px rgba(17,17,17,.06); }
+
+/* ---------- Buttons ---------- */
+.folio-dark-button, .folio-coral-button, .folio-outline-dark, .folio-light-outline { border-radius: 999px; }
+.button { border-radius: 999px; }
+.button-dark { background: linear-gradient(180deg, #232323, #0d0d0d); box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); }
+
+/* ---------- Footer WhatsApp pill ---------- */
+.folio-footer-pill {
+  position: relative; display: inline-flex; align-items: center; gap: 12px; margin-top: 2px;
+  padding: 7px 7px 7px 18px; overflow: hidden; border: 1px solid rgba(200,255,101,.45); border-radius: 999px;
+  color: #0d0d0d; background: linear-gradient(135deg, #d9ff8a 0%, var(--pf-lime) 55%, #a8f04a 100%);
+  font-size: 12px; font-weight: 800; letter-spacing: .01em;
+  box-shadow: 0 14px 34px -14px rgba(200,255,101,.6), 0 0 0 4px rgba(200,255,101,.07);
+  transition: transform .35s var(--pf-ease), box-shadow .35s var(--pf-ease), gap .3s var(--pf-ease);
+}
+.folio-footer-pill:before {
+  position: absolute; inset: 0; content: ''; transform: translateX(-120%);
+  background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transition: transform .7s var(--pf-ease);
+}
+.folio-footer-pill:hover { transform: translateY(-3px); gap: 16px; box-shadow: 0 20px 40px -14px rgba(200,255,101,.75), 0 0 0 6px rgba(200,255,101,.1); }
+.folio-footer-pill:hover:before { transform: translateX(120%); }
+.folio-footer-pill:focus-visible { outline: 0; box-shadow: var(--pf-ring); }
+.pill-live { position: relative; z-index: 1; width: 8px; height: 8px; border-radius: 50%; background: #0d0d0d; box-shadow: 0 0 0 0 rgba(13,13,13,.45); animation: pfPulse 2.2s infinite; }
+.pill-label { position: relative; z-index: 1; }
+.pill-arrow { position: relative; z-index: 1; display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: var(--pf-lime); background: #0d0d0d; transition: transform .35s var(--pf-ease); }
+.folio-footer-pill:hover .pill-arrow { transform: rotate(45deg); }
+@keyframes pfPulse { 70% { box-shadow: 0 0 0 7px rgba(13,13,13,0); } 100% { box-shadow: 0 0 0 0 rgba(13,13,13,0); } }
+.folio-footer-brand p { margin-bottom: 20px; }
+
+/* ---------- Footer finish ---------- */
+.folio-footer { background: radial-gradient(900px 340px at 12% 0%, rgba(94,106,210,.16), transparent 70%), #0d0d0d; }
+.folio-footer-giant { -webkit-text-stroke: 1px rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(200,255,101,.18), transparent 70%); -webkit-background-clip: text; background-clip: text; }
+.folio-footer-column a { transition: color .2s, transform .25s var(--pf-ease); }
+.folio-footer-column a:hover { transform: translateX(4px); }
+
+/* ---------- Details: scrollbar, focus, selection ---------- */
+html { scrollbar-color: #3a3a3a #0d0d0d; scrollbar-width: thin; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--pf-lime); outline-offset: 3px; }
+img { -webkit-user-drag: none; }
+
+@media (max-width: 760px) {
+  .brand-mark.brand-mark-photo { width: 36px; height: 36px; }
+  .folio-footer-pill { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill-live, .folio-footer-pill:before { animation: none; transition: none; }
+  .folio-card, .brand-mark.brand-mark-photo, .folio-footer-pill { transition: none; }
+}

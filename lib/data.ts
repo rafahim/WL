@@ -45,7 +45,7 @@ export type Website = {
 
 // Curated listings are maintained manually in this file. The descriptions,
 // capabilities and technology labels below are based on each website's public
-// pages and linked portfolio information checked on 16 November 2026.
+// pages and linked portfolio information checked on 16–17 November 2026.
 // No listing database or admin backend is used by the static directory.
 export const websites: Website[] = [
   {
@@ -534,6 +534,47 @@ export const websites: Website[] = [
     label: 'Printing store',
     added: '2026-11-16',
     infoChecked: '2026-11-16',
+    demo: false
+  },
+  {
+    rank: 14,
+    slug: 'codeatlas',
+    name: 'Code Atlas',
+    domain: 'codeatlas.rafahim.com',
+    url: 'https://codeatlas.rafahim.com/',
+    category: 'Education',
+    tagline: 'Learn programming in Bangla with 30+ languages, step-by-step lessons, quizzes and live code practice.',
+    description: 'Code Atlas is a free Bangla-language place to learn programming from the very beginning. Learners pick a language from a library of 30+ (including HTML, CSS, JavaScript, Python, C, Java and C++), follow a simple roadmap, and read step-by-step lessons with quizzes and exercises. A built-in Code Practice page lets visitors write HTML, CSS and JavaScript and see a live preview straight in the browser, with no account needed. A master course of 19 chapters and 137 lessons covers computers, programming, the web, databases, Git, APIs, testing and real projects.',
+    seoDescription: 'Learn programming in Bangla with Code Atlas: 30+ languages, a 137-lesson master course, quizzes and live code practice in your browser, free and with no account.',
+    audience: 'Beginners and students in Bangladesh who want to learn programming and web development in Bangla, at their own pace.',
+    logoText: 'CA',
+    color: '#e9e7fb',
+    accent: '#5b4bd5',
+    tags: ['Learn programming', 'Bangla tutorials', 'HTML', 'CSS', 'JavaScript', 'Python', 'Code practice', 'Free'],
+    features: [
+      'Library of 30+ programming languages with beginner-friendly guides',
+      'Master course with 19 chapters and 137 lessons',
+      'Step-by-step lessons with quizzes and exercises',
+      'Code Practice page with HTML, CSS and JavaScript and a live preview',
+      'Learning paths for web development, programming basics and data',
+      'Free to use, no account required'
+    ],
+    techStack: ['Next.js', 'React'],
+    highlights: [
+      { label: 'Languages', value: '30+' },
+      { label: 'Master course', value: '19 chapters · 137 lessons' },
+      { label: 'Practice', value: 'Live preview' },
+      { label: 'Account', value: 'Not required' }
+    ],
+    relatedLinks: [
+      { label: 'Master course', url: 'https://codeatlas.rafahim.com/courses/' },
+      { label: 'All languages', url: 'https://codeatlas.rafahim.com/languages/' },
+      { label: 'Code practice', url: 'https://codeatlas.rafahim.com/practice/' }
+    ],
+    featured: false,
+    label: 'Learning platform',
+    added: '2026-11-17',
+    infoChecked: '2026-11-17',
     demo: false
   }
 ];
