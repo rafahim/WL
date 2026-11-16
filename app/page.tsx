@@ -80,12 +80,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="folio-stats" aria-label="Directory statistics">
-        <div className="folio-container folio-stats-grid">
-          <div><strong>{String(liveCount).padStart(2, '0')}</strong><span>Curated websites</span></div>
-          <div><strong>{String(activeCategories).padStart(2, '0')}</strong><span>Active categories</span></div>
-          <div><strong>100%</strong><span>Human reviewed</span></div>
-          <div><strong>Free</strong><span>To nominate a website</span></div>
+      <section className="folio-proof" aria-label="Directory statistics">
+        <div className="folio-container">
+          <ul className="folio-proof-card">
+            <li>
+              <span className="folio-proof-icon"><Icon name="globe" size={18} /></span>
+              <strong>{String(liveCount).padStart(2, '0')}</strong>
+              <span className="folio-proof-label">Curated websites</span>
+            </li>
+            <li>
+              <span className="folio-proof-icon"><Icon name="layers" size={18} /></span>
+              <strong>{String(activeCategories).padStart(2, '0')}</strong>
+              <span className="folio-proof-label">Active categories</span>
+            </li>
+            <li>
+              <span className="folio-proof-icon"><Icon name="shield" size={18} /></span>
+              <strong>100%</strong>
+              <span className="folio-proof-label">Reviewed by a person</span>
+            </li>
+            <li>
+              <span className="folio-proof-icon"><Icon name="sparkles" size={18} /></span>
+              <strong>Free</strong>
+              <span className="folio-proof-label">To nominate a website</span>
+            </li>
+          </ul>
         </div>
       </section>
 

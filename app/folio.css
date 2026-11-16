@@ -100,13 +100,6 @@ a { text-decoration: none; }
 .website-logo-small .website-logo-fallback { font-size: 12px; }
 .website-logo-large .website-logo-fallback { font-size: 19px; }
 
-/* Lime statistics strip */
-.folio-stats { border-block: 1px solid rgba(0,0,0,.3); background: var(--folio-lime); color: #111; }
-.folio-stats-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
-.folio-stats-grid>div { display: flex; min-height: 80px; flex-direction: column; justify-content: center; padding: 12px 24px; border-left: 1px solid rgba(0,0,0,.24); }
-.folio-stats-grid>div:first-child { padding-left: 0; border-left: 0; }
-.folio-stats-grid strong { font: italic 26px/1 var(--folio-serif); }
-.folio-stats-grid span { margin-top: 5px; font-size: 8px; font-weight: 900; letter-spacing: .16em; opacity: .56; text-transform: uppercase; }
 
 /* Cream directory index */
 .folio-directory, .folio-explore-section { padding: 108px 0 118px; color: var(--folio-ink); background: var(--folio-paper); }
@@ -501,9 +494,6 @@ a { text-decoration: none; }
   .folio-orbit-card-3 { bottom: 11%; left: -2%; }
   .folio-orbit-card-4 { right: -2%; bottom: 0; }
   .folio-orbit-stamp { right: 1%; bottom: 1%; width: 67px; height: 67px; font-size: 7px; }
-  .folio-stats-grid>div { min-height: 75px; padding: 10px 12px; }
-  .folio-stats-grid strong { font-size: 22px; }
-  .folio-stats-grid span { font-size: 7px; letter-spacing: .1em; }
   .folio-directory, .folio-explore-section { padding: 72px 0 82px; }
   .folio-directory-heading { grid-template-columns: 1fr; gap: 22px; }
   .folio-directory-heading h2 { font-size: clamp(47px,9vw,66px); }
@@ -582,9 +572,6 @@ a { text-decoration: none; }
   .folio-browser-dots { margin-bottom: 8px; padding-bottom: 7px; }
   .folio-orbit-core { width: 112px; height: 112px; }
   .folio-orbit-core strong { font-size: 41px; }
-  .folio-stats-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .folio-stats-grid>div:nth-child(3) { padding-left: 0; border-left: 0; }
-  .folio-stats-grid>div:nth-child(n+3) { border-top: 1px solid rgba(0,0,0,.24); }
   .folio-card-grid { grid-template-columns: 1fr; gap: 10px; }
   .folio-card { min-height: 260px; }
   .folio-card-link { padding: 21px 18px 16px; }

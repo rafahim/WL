@@ -1,5 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="15" fill="#ff6449"/>
-  <path d="M14 20h36v7H14zM14 37h25v7H14z" fill="#181b24" transform="rotate(-38 32 32)"/>
-  <circle cx="47" cy="44" r="5" fill="#d8fb70"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bw-rim" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c8ff65"/><stop offset=".55" stop-color="#b6a7ff"/><stop offset="1" stop-color="#ff8063"/>
+    </linearGradient>
+    <linearGradient id="bw-b" x1="20" y1="14" x2="44" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e9ffb3"/><stop offset="1" stop-color="#c8ff65"/>
+    </linearGradient>
+  </defs>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="19" fill="#0d0d0d" stroke="url(#bw-rim)" stroke-width="3"/>
+  <path d="M21 15v34M21 15h13a8.5 8.5 0 0 1 0 17H21m0 0h15a8.5 8.5 0 0 1 0 17H21" stroke="url(#bw-b)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="48.5" cy="15.5" r="4.6" fill="#ff8063"/>
 </svg>
