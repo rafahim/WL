@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Icon } from '@/components/icon';
 import { siteConfig } from '@/lib/config';
-import './ra-fahim.css';
 
 const profileUrl = `${siteConfig.url}/ra-fahim/`;
 const profileImage = `${siteConfig.url}/ra-fahim-profile.png`;

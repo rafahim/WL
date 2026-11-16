@@ -4,6 +4,8 @@ import './globals.css';
 import './premium.css';
 import './redesign.css';
 import './unified.css';
+import './ra-fahim/ra-fahim.css';
+import './folio.css';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { Motion } from '@/components/motion';

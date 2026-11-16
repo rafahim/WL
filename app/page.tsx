@@ -1,87 +1,126 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import type { Metadata } from 'next';
 import { Icon } from '@/components/icon';
-import { HeroSearch } from '@/components/hero-search';
-import { CategoryCard } from '@/components/category-card';
-import { categories, categorySlug, websites } from '@/lib/data';
+import { WebsiteLogo } from '@/components/website-logo';
+import { HomeDirectory } from '@/components/home-directory';
+import { liveWebsites, websites, categories } from '@/lib/data';
 import { siteConfig } from '@/lib/config';
 
+export const metadata: Metadata = {
+  title: 'BD Web List — Discover the Best of the Bangladeshi Web',
+  description: 'An independent index of useful websites, creative portfolios, online stores and digital tools from Bangladesh. Browse the index or nominate a website.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'BD Web List — Discover the Best of the Bangladeshi Web',
+    description: 'A living index of useful, inventive and beautifully made websites from Bangladesh.',
+    type: 'website',
+    url: siteConfig.url,
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'BD Web List' }]
+  }
+};
+
+const orbitWebsites = [websites[2], websites[0], websites[1], websites[4]].filter(Boolean);
+const featuredWebsites = liveWebsites.filter((website) => website.featured).slice(0, 4);
+
 export default function HomePage() {
-  const liveCount = websites.filter((website) => !website.demo).length;
-  const activeCategories = categories.filter((category) => websites.some((site) => site.category === category.name));
-  const homeListings = websites.slice(0, 7);
-  const rowA = websites.filter((_, n) => n % 2 === 0);
-  const rowB = websites.filter((_, n) => n % 2 === 1);
+  const liveCount = liveWebsites.length;
+  const activeCategories = categories.filter((category) => liveWebsites.some((site) => site.category === category.name)).length;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'BD Web List — Discover Exceptional Websites',
+    name: 'BD Web List — Discover the Best of the Bangladeshi Web',
     description: siteConfig.description,
     url: siteConfig.url,
     inLanguage: 'en',
     isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
-    publisher: { '@type': 'Organization', name: siteConfig.name, url: siteConfig.url },
     mainEntity: {
       '@type': 'ItemList',
-      numberOfItems: websites.filter((website) => !website.demo).length,
-      itemListElement: websites.filter((website) => !website.demo).map((website, index) => ({
-        '@type': 'ListItem', position: index + 1, name: website.name,
-        url: `${siteConfig.url}/websites/${website.slug}/`, description: website.seoDescription
+      numberOfItems: liveCount,
+      itemListElement: liveWebsites.map((website, index) => ({
+        '@type': 'ListItem', position: index + 1,
+        name: website.name,
+        url: `${siteConfig.url}/websites/${website.slug}/`,
+        description: website.seoDescription
       }))
     }
   };
 
-  const Thumb = ({ w }: { w: (typeof websites)[number] }) => <Link href={`/websites/${w.slug}/`} className="h-thumb" tabIndex={-1}><img src={`/og/${w.slug}.png`} alt="" width={1200} height={630} loading="lazy" /><span>{w.name}</span></Link>;
-  const Row = ({ list, rev }: { list: typeof websites; rev?: boolean }) => <div className={`h-row ${rev ? 'rev' : ''}`}>{[0, 1].map((k) => <div className="h-group" key={k} aria-hidden={k === 1}>{list.map((w) => <Thumb key={w.slug} w={w} />)}</div>)}</div>;
-  const steps = [
-    { n: '01', t: 'Submit your website', d: 'Tell us what you built, who it is for and where to find it. It takes about two minutes.' },
-    { n: '02', t: 'We review it by hand', d: 'Every listing is checked manually for quality, safety and a genuinely useful experience.' },
-    { n: '03', t: 'Get discovered', d: 'Approved websites get a dedicated profile page, share image and a place in search and categories.' }
-  ];
-  return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
-    <div className="h-page">
-      <section className="h-hero">
-        <div className="h-orb h-orb-a" aria-hidden="true" /><div className="h-orb h-orb-b" aria-hidden="true" /><div className="h-grid" aria-hidden="true" />
-        <div className="container h-hero-inner">
-          <span className="h-badge"><i /> {liveCount} hand-picked websites · updated {new Date().getFullYear()}</span>
-          <h1>The best of the Bangladeshi web, <em>beautifully curated.</em></h1>
-          <p>Discover remarkable portfolios, stores, tools and businesses — or put your own website in front of people who care.</p>
-          <HeroSearch />
-          <div className="h-chips">{activeCategories.slice(0, 6).map((c) => <Link key={c.name} href={`/categories/${categorySlug(c.name)}/`}>{c.name}</Link>)}<Link href="/explore/" className="h-chip-all">All websites <Icon name="arrow-up-right" size={13} /></Link></div>
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
+      <section className="folio-hero">
+        <div className="folio-hero-glow folio-hero-glow-left" aria-hidden="true" />
+        <div className="folio-hero-glow folio-hero-glow-right" aria-hidden="true" />
+        <div className="folio-noise" aria-hidden="true" />
+        <div className="folio-container folio-hero-layout">
+          <div className="folio-hero-copy">
+            <div className="folio-edition-row">
+              <span className="folio-live-pill"><i /> Live index</span>
+              <span>Bangladesh edition · 2026</span>
+            </div>
+            <h1>Don't browse<br />the web.<br /><em>Discover it.</em></h1>
+            <div className="folio-hero-description">
+              <p>A living index of Bangladesh's most useful, inventive and beautifully made websites — curated for people who love finding something good.</p>
+              <a href="#directory" className="folio-round-cta" aria-label="Explore the website index"><Icon name="arrow-right" size={22} /></a>
+            </div>
+            <div className="folio-hero-meta"><span>01 / DISCOVER</span><span>02 / EXPLORE</span><span>03 / SHARE WHAT YOU MADE</span></div>
+          </div>
+
+          <div className="folio-orbit-stage" aria-label="Featured websites">
+            <div className="folio-orbit-ring" />
+            <div className="folio-orbit-core"><strong>{String(liveCount).padStart(2, '0')}</strong><span>websites<br />in the index</span></div>
+            {orbitWebsites.map((website, index) => (
+              <Link href={`/websites/${website.slug}/`} key={website.slug} className={`folio-orbit-card folio-orbit-card-${index + 1}`}>
+                <div className="folio-browser-dots"><i /><i /><i /></div>
+                <div className="folio-orbit-brand"><WebsiteLogo website={website} size="regular" /><span><b>{website.name}</b><small>{website.domain}</small></span><em>{String(website.rank).padStart(2, '0')}</em></div>
+              </Link>
+            ))}
+            <span className="folio-orbit-stamp">GOOD<br />SITES<br /><b>ONLY.</b></span>
+          </div>
         </div>
-        <div className="h-marquee" aria-label="Featured websites"><Row list={rowA} /><Row list={rowB} rev /></div>
       </section>
 
-      <section className="h-stats"><div className="container h-stats-grid">
-        {[[String(liveCount), 'Curated websites'], [String(activeCategories.length), 'Active categories'], ['100%', 'Manually reviewed'], ['Free', 'To request a listing']].map(([v, l]) => <div className="h-stat h-reveal" key={l}><strong>{v}</strong><span>{l}</span></div>)}
-      </div></section>
+      <section className="folio-stats" aria-label="Directory statistics">
+        <div className="folio-container folio-stats-grid">
+          <div><strong>{String(liveCount).padStart(2, '0')}</strong><span>Curated websites</span></div>
+          <div><strong>{String(activeCategories).padStart(2, '0')}</strong><span>Active categories</span></div>
+          <div><strong>100%</strong><span>Human reviewed</span></div>
+          <div><strong>Free</strong><span>To nominate a website</span></div>
+        </div>
+      </section>
 
-      <section className="h-section" id="latest"><div className="container">
-        <div className="h-head h-reveal"><div><span className="h-eyebrow">Fresh discoveries</span><h2>Websites worth <em>your time.</em></h2></div><Link href="/explore/" className="h-link">View all <Icon name="arrow-up-right" size={16} /></Link></div>
-        <div className="h-cards">{homeListings.map((w, n) => <article key={w.slug} className={`h-card h-reveal ${n === 0 || n === 5 ? 'wide' : ''}`} style={{ '--card-accent': w.accent } as CSSProperties}>
-          <Link href={`/websites/${w.slug}/`} aria-label={`Read the ${w.name} listing`}>
-            <div className="h-card-img"><img src={`/og/${w.slug}.png`} alt={`${w.name} website preview`} width={1200} height={630} loading="lazy" /><span className="h-pill">{w.category}</span>{w.featured && <span className="h-star"><Icon name="star" size={12} /> Featured</span>}</div>
-            <div className="h-card-body"><div className="h-card-top"><h3>{w.name}</h3><span className="h-go"><Icon name="arrow-up-right" size={16} /></span></div><p>{w.tagline}</p><div className="h-card-foot"><span><i /> {w.domain}</span><span>{w.tags.slice(0, 2).join(' · ')}</span></div></div>
-          </Link>
-        </article>)}</div>
-      </div></section>
+      <HomeDirectory />
 
-      <section className="h-section" id="categories"><div className="container">
-        <div className="h-head h-reveal"><div><span className="h-eyebrow">Browse</span><h2>Explore by <em>category.</em></h2></div><Link href="/explore/" className="h-link">All websites <Icon name="arrow-up-right" size={16} /></Link></div>
-        <div className="h-cats">{activeCategories.map((category) => <CategoryCard key={category.name} category={category} count={websites.filter((site) => site.category === category.name).length} />)}</div>
-      </div></section>
+      <section className="folio-curations" id="collections">
+        <div className="folio-curation-letter" aria-hidden="true">C</div>
+        <div className="folio-container folio-curation-layout">
+          <div className="folio-curation-copy">
+            <span className="folio-selection-stamp">Editor's selection</span>
+            <p className="folio-curation-kicker">A LITTLE LESS SCROLLING. A LITTLE MORE FINDING.</p>
+            <h2>Great websites.<br /><em>Zero noise.</em></h2>
+            <p className="folio-curation-description">A handpicked collection of standout Bangladeshi websites, chosen for the ideas, experiences and useful things they put into the world.</p>
+            <Link href="/explore/" className="folio-dark-button">Explore the full index <Icon name="arrow-right" size={17} /></Link>
+          </div>
+          <div className="folio-feature-stack">
+            {featuredWebsites.map((website, index) => (
+              <Link href={`/websites/${website.slug}/`} key={website.slug} className={`folio-feature-row folio-feature-row-${index + 1}`}>
+                <span className="folio-feature-rank">{String(website.rank).padStart(2, '0')}</span>
+                <WebsiteLogo website={website} size="regular" />
+                <span className="folio-feature-copy"><b>{website.name}</b><small>{website.category} · {website.domain}</small></span>
+                <span className="folio-feature-arrow"><Icon name="arrow-up-right" size={17} /></span>
+              </Link>
+            ))}
+            {featuredWebsites.length === 0 && <p>No featured websites yet.</p>}
+          </div>
+        </div>
+      </section>
 
-      <section className="h-section"><div className="container">
-        <div className="h-head h-reveal"><div><span className="h-eyebrow">How it works</span><h2>From idea to <em>discovered.</em></h2></div></div>
-        <div className="h-steps">{steps.map((s) => <div className="h-step h-reveal" key={s.n}><span>{s.n}</span><h3>{s.t}</h3><p>{s.d}</p></div>)}</div>
-      </div></section>
-
-      <section className="h-cta-wrap"><div className="container"><div className="h-cta h-reveal">
-        <div className="h-orb h-orb-c" aria-hidden="true" />
-        <span className="h-eyebrow">Your turn</span><h2>Built something <em>great?</em><br />Let the web find it.</h2><p>Submit your website for a free, hand-reviewed listing with its own profile page.</p>
-        <div className="h-cta-actions"><Link href="/submit/" className="button button-accent">Submit a website <Icon name="arrow-up-right" size={16} /></Link><Link href="/guidelines/" className="button button-outline">Read the guidelines</Link></div>
-      </div></div></section>
-    </div>
-  </>;
+      <section className="folio-nominate-strip">
+        <div className="folio-container folio-nominate-inner">
+          <div><span className="folio-eyebrow-dark">HAVE SOMETHING WORTH DISCOVERING?</span><h2>Made a good thing?<br /><em>Put it on the map.</em></h2></div>
+          <div className="folio-nominate-action"><p>Nominate your website for a free human review and a dedicated profile in the index.</p><Link href="/submit/" className="folio-coral-button">Nominate a site <Icon name="arrow-up-right" size={16} /></Link></div>
+        </div>
+      </section>
+    </>
+  );
 }

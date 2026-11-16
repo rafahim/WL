@@ -26,6 +26,8 @@ export type Website = {
   seoDescription: string;
   audience: string;
   logoText: string;
+  /** Optional direct URL to the website's official logo asset; domain favicon is used otherwise. */
+  logoUrl?: string;
   color: string;
   accent: string;
   tags: string[];
